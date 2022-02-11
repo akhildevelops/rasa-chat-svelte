@@ -1,6 +1,9 @@
 <script>
   export let name;
   import MessageIcon from "./components/MessageIcon.svelte";
+  let clicked;
+  let content = "";
+  $: content = clicked ? "It's clicked" : "Not CLicked";
 </script>
 
 <main>
@@ -10,15 +13,20 @@
     how to build Svelte apps.
   </p>
 </main>
-<div class="parent">
-  <MessageIcon class="chat-icon" chat_icon="assets/chat-icon.png" />
-</div>
+
+<MessageIcon
+  class="chat-icon"
+  chat_icon="assets/chat-icon.png"
+  bind:status={clicked}
+/>
+
+<p>Status of button {content}</p>
 
 <style>
   :global(.chat-icon) {
     position: fixed;
-    bottom: 23px;
-    right: 28px;
+    right: 20px;
+    bottom: 20px;
   }
   main {
     text-align: center;
