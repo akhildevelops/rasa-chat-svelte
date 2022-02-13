@@ -1,8 +1,9 @@
 <script>
   export let name;
   import MessageIcon from "./components/MessageIcon.svelte";
+  import ChatWindow from "./components/ChatWindow.svelte";
+  import TextInput from "./components/TextInput.svelte";
   let clicked;
-  let content = "";
   $: content = clicked ? "It's clicked" : "Not CLicked";
 </script>
 
@@ -20,7 +21,8 @@
   bind:status={clicked}
 />
 
-<p>Status of button {content}</p>
+<ChatWindow />
+<TextInput />
 
 <style>
   :global(.chat-icon) {
