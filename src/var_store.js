@@ -1,3 +1,4 @@
 import { writable } from "svelte/store";
 
-export const msgs = writable([]);
+export const sender_msgs = writable([]);
+export const receiver_msgs = writable([]);
