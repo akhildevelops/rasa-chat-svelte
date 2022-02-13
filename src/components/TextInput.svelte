@@ -6,10 +6,10 @@
 <input type="text" bind:value />
 <button
   on:click={(e) => {
-    // console.log(value);
     msgs.update((x) => {
       x.push(value);
       return x;
     });
+    value = "";
   }}>Send</button
 >
