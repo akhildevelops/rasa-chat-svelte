@@ -99,3 +99,7 @@ Then, from within your project folder:
 npm run build
 surge public my-project.surge.sh
 ```
+
+Node --version: 17.4.0
+Python --version: 3.8.10
+Rasa --version: 2.8.25
