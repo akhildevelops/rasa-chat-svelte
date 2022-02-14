@@ -1,6 +1,5 @@
 <script>
-  import { sender_msgs } from "../var_store";
-  import { receiver_msgs } from "../var_store";
+  import { sender_msgs, receiver_msgs } from "../var_store";
   import MessageBubble from "./MessageBubble.svelte";
   import TextInput from "./TextInput.svelte";
 

@@ -2,7 +2,18 @@
   export let name;
   import MessageIcon from "./components/MessageIcon.svelte";
   import ChatWindow from "./components/ChatWindow.svelte";
-
+  import { web_s } from "./utils/websocket";
+  let conn_err = false;
+  let ws_url = "";
+  web_s.on("connect", (event) => {
+    console.log("Socket connected:" + web_s.connected);
+    conn_err = false;
+  });
+  web_s.on("connect_error", (e) => {
+    conn_err = true;
+    console.error(e);
+    ws_url = e.name;
+  });
   let clicked;
   $: chat_visibility = clicked ? "visible" : "hidden";
 </script>
@@ -14,6 +25,9 @@
     how to build Svelte apps.
   </p>
 </main>
+{#if conn_err}
+  <div>Cannot connect to websocket ==> {ws_url}</div>
+{/if}
 <div class="chat" style="--chat-visibility: {chat_visibility}">
   <div class="chat-inner">
     <ChatWindow />

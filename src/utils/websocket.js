@@ -1,23 +1,27 @@
 import { receiver_msgs } from "../var_store";
+import { io } from "socket.io-client";
+const connection_url = "http://localhost:5005";
 
-const connection_url = "ws://localhost:10000";
-
-const web_s = new WebSocket(connection_url);
+export const web_s = io(connection_url);
 
 export const send = (text) => {
   console.log(`Sending Text: ${text}`);
-  web_s.send(text);
-};
-
-web_s.onopen = (event) => {
-  console.log("Connected");
-};
-
-web_s.onmessage = (event) => {
-  receiver_msgs.update((x) => {
-    console.log(`Receiveing Text: ${event.data}`);
-
-    x.push(event.data);
-    return x;
+  web_s.emit("user_uttered", { message: text }, (response) => {
+    console.log(response);
+    console.log(1234);
   });
 };
+
+web_s.on("bot_uttered", (event) => {
+  console.log("ready");
+  console.log(`Receiveing Text: ${event}`);
+  receiver_msgs.update((x) => {
+    x.push(event.text);
+    return x;
+  });
+});
+
+web_s.onAny((eventName, ...args) => {
+  console.log(eventName);
+  console.log(...args);
+});
