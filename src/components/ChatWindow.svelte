@@ -1,24 +1,32 @@
 <script>
   import { sender_msgs } from "../var_store";
   import { receiver_msgs } from "../var_store";
-  let var_sender_msgs = [];
-  let var_receiver_msgs = [];
+  import MessageBubble from "./MessageBubble.svelte";
+  let all_msgs = [];
+  // $: msgs = all_msgs;
   sender_msgs.subscribe((e) => {
-    var_sender_msgs = e;
-    // console.log(var_sender_msgs);
+    all_msgs.push({ from: "sender", msg: e.slice(-1)[0] });
+    all_msgs = all_msgs;
   });
   receiver_msgs.subscribe((e) => {
-    var_receiver_msgs = e;
-  });
-  $: messages = var_sender_msgs.map((e, i) => {
-    return [e, var_receiver_msgs[i]];
+    all_msgs.push({ from: "receiver", msg: e.slice(-1)[0] });
+    all_msgs = all_msgs;
   });
 </script>
 
 <div class="chat-window">
-  {#each messages as msg}
-    <div>Sender: {msg[0]}</div>
-    <div>Receiver: {msg[1]}</div>
+  {#each all_msgs as msg}
+    {#if msg.from == "sender"}
+      <div align="right" style="color: red;">
+        <div>sender</div>
+        <MessageBubble text={msg.msg} class="sender" />
+      </div>
+    {:else}
+      <div align="left" style="color: blue;">
+        <div>receiver</div>
+        <MessageBubble text={msg.msg} class="receiver" />
+      </div>
+    {/if}
   {/each}
 </div>
 
