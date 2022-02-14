@@ -2,9 +2,8 @@
   export let name;
   import MessageIcon from "./components/MessageIcon.svelte";
   import ChatWindow from "./components/ChatWindow.svelte";
-  import TextInput from "./components/TextInput.svelte";
+
   let clicked;
-  $: content = clicked ? "It's clicked" : "Not CLicked";
 </script>
 
 <main>
@@ -14,22 +13,23 @@
     how to build Svelte apps.
   </p>
 </main>
+<div class="chat">
+  <ChatWindow show={clicked} />
 
-<MessageIcon
-  class="chat-icon"
-  chat_icon="assets/chat-icon.png"
-  bind:status={clicked}
-/>
-
-<ChatWindow />
-<TextInput />
+  <MessageIcon
+    class="chat-icon"
+    chat_icon="assets/chat-icon.png"
+    bind:status={clicked}
+  />
+</div>
 
 <style>
-  :global(.chat-icon) {
+  .chat {
     position: fixed;
     right: 20px;
     bottom: 20px;
   }
+
   main {
     text-align: center;
     padding: 1em;
