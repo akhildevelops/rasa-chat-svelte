@@ -4,6 +4,7 @@
   import ChatWindow from "./components/ChatWindow.svelte";
 
   let clicked;
+  $: chat_visibility = clicked ? "visible" : "hidden";
 </script>
 
 <main>
@@ -13,9 +14,10 @@
     how to build Svelte apps.
   </p>
 </main>
-<div class="chat">
-  <ChatWindow show={clicked} />
-
+<div class="chat" style="--chat-visibility: {chat_visibility}">
+  <div class="chat-inner">
+    <ChatWindow />
+  </div>
   <MessageIcon
     class="chat-icon"
     chat_icon="assets/chat-icon.png"
@@ -29,7 +31,13 @@
     right: 20px;
     bottom: 20px;
   }
-
+  .chat-inner {
+    visibility: var(--chat-visibility);
+  }
+  :global(.chat-icon) {
+    height: 100px;
+    margin-left: 400px;
+  }
   main {
     text-align: center;
     padding: 1em;

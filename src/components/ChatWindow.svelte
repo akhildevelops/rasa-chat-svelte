@@ -3,7 +3,7 @@
   import { receiver_msgs } from "../var_store";
   import MessageBubble from "./MessageBubble.svelte";
   import TextInput from "./TextInput.svelte";
-  export let show;
+
   let all_msgs = [];
   // $: msgs = all_msgs;
   sender_msgs.subscribe((e) => {
@@ -18,7 +18,7 @@
 </script>
 
 <div class="chat-window-input">
-  <div class="chat-window" style="visibility: {show ? 'visible' : 'hidden'};">
+  <div class="chat-window">
     {#each all_msgs as msg (msg)}
       {#if msg.from == "sender"}
         <div align="right">
@@ -33,7 +33,7 @@
       {/if}
     {/each}
   </div>
-  <TextInput {show} />
+  <TextInput />
 </div>
 
 <style>

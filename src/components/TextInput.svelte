@@ -1,6 +1,6 @@
 <script>
   let value;
-  export let show;
+
   import { send } from "../utils/websocket";
   import { sender_msgs, receiver_msgs } from "../var_store";
   let add_to_group = (x) => {
@@ -10,7 +10,7 @@
   };
 </script>
 
-<div style="visibility: {show ? 'visible' : 'hidden'};">
+<div>
   <input type="text" bind:value />
   <button
     on:click={(e) => {
