@@ -20,10 +20,7 @@
 
 <main>
   <h1>Hello {name}!</h1>
-  <p>
-    Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn
-    how to build Svelte apps.
-  </p>
+  <p>Click on that <span style="color: green;">Whatsapp</span> Icon</p>
 </main>
 {#if conn_err}
   <div>Cannot connect to websocket ==> {ws_url}</div>

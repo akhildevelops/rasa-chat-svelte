@@ -7,17 +7,23 @@
   let all_msgs = [];
   // $: msgs = all_msgs;
   sender_msgs.subscribe((e) => {
-    all_msgs.push({ from: "sender", msg: e.slice(-1)[0] });
-    all_msgs = all_msgs;
+    let sender_text = e.slice(-1)[0];
+    if (sender_text !== undefined) {
+      all_msgs.push({ from: "sender", msg: e.slice(-1)[0] });
+      all_msgs = all_msgs;
+    }
   });
   receiver_msgs.subscribe((e) => {
-    all_msgs.push({ from: "receiver", msg: e.slice(-1)[0] });
-    console.log(all_msgs);
-    all_msgs = all_msgs;
+    let rec_text = e.slice(-1)[0];
+    if (rec_text !== undefined) {
+      all_msgs.push({ from: "receiver", msg: e.slice(-1)[0] });
+      // console.log(all_msgs);
+      all_msgs = all_msgs;
+    }
   });
   $: all_msgs,
     (() => {
-      if (chat_window != undefined) {
+      if (chat_window !== undefined && message !== undefined) {
         chat_window.scrollTop = chat_window.scrollHeight + message.offsetHeight;
       }
     })();
@@ -27,7 +33,7 @@
   <div class="chat-window" bind:this={chat_window}>
     {#each all_msgs as msg (msg)}
       <div bind:this={message} align={msg.from == "sender" ? "right" : "left"}>
-        <div>{msg.from}</div>
+        <div class="from-identifier">{msg.from}</div>
         <MessageBubble text={msg.msg} class={msg.from} />
       </div>
     {/each}
@@ -36,12 +42,20 @@
 </div>
 
 <style>
+  .from-identifier {
+    /* border: 1px solid #000; */
+    width: fit-content;
+    overflow-wrap: break-word;
+    background-color: rgb(202, 196, 196);
+  }
   .chat-window {
-    width: 500px;
+    width: 700px;
     border: 1px solid #000;
     overflow-y: scroll;
     height: 300px;
+    background-image: url(https://preview.pixlr.com/images/800wm/1337/1/1337100692.jpg);
   }
+
   :global(.sender) {
     background: aqua;
   }
