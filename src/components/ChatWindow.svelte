@@ -3,6 +3,7 @@
   import MessageBubble from "./MessageBubble.svelte";
   import TextInput from "./TextInput.svelte";
   let chat_window;
+  let message;
   let all_msgs = [];
   // $: msgs = all_msgs;
   sender_msgs.subscribe((e) => {
@@ -17,7 +18,7 @@
   $: all_msgs,
     (() => {
       if (chat_window != undefined) {
-        chat_window.scrollTop = chat_window.scrollHeight;
+        chat_window.scrollTop = chat_window.scrollHeight + message.offsetHeight;
       }
     })();
 </script>
@@ -25,7 +26,7 @@
 <div class="chat-window-input">
   <div class="chat-window" bind:this={chat_window}>
     {#each all_msgs as msg (msg)}
-      <div align={msg.from == "sender" ? "right" : "left"}>
+      <div bind:this={message} align={msg.from == "sender" ? "right" : "left"}>
         <div>{msg.from}</div>
         <MessageBubble text={msg.msg} class={msg.from} />
       </div>
