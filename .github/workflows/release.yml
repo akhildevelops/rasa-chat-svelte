@@ -1,0 +1,41 @@
+name: release
+env:
+  ARTIFICAT_ZIP: chat-interface.zip
+on:
+  push:
+    branches:
+      - "master"
+    tags:
+      - "v*"
+
+jobs:
+  tagged-release:
+    name: "Tagged Release"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout Repo"
+        uses: actions/checkout@v2
+
+      - name: "Install Nodejs and npm"
+        uses: actions/setup-node@v2
+        with:
+          node-version: "17.4.0"
+
+      - name: "Install packages"
+        run: "npm install"
+
+      - name: "Build files"
+        run: "npm run build"
+
+      - name: "Zip public folder"
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r ${{ env.ARTIFICAT_ZIP }} public
+
+      - name: "Release"
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: ${{ env.ARTIFICAT_ZIP }}
