@@ -39,6 +39,8 @@
   .chat-window {
     width: 500px;
     border: 1px solid #000;
+    overflow-y: scroll;
+    height: 400px;
   }
   :global(.sender) {
     background: aqua;
