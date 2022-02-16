@@ -2,7 +2,7 @@
   import { sender_msgs, receiver_msgs } from "../var_store";
   import MessageBubble from "./MessageBubble.svelte";
   import TextInput from "./TextInput.svelte";
-
+  let chat_window;
   let all_msgs = [];
   // $: msgs = all_msgs;
   sender_msgs.subscribe((e) => {
@@ -14,10 +14,16 @@
     console.log(all_msgs);
     all_msgs = all_msgs;
   });
+  $: all_msgs,
+    (() => {
+      if (chat_window != undefined) {
+        chat_window.scrollTop = chat_window.scrollHeight;
+      }
+    })();
 </script>
 
 <div class="chat-window-input">
-  <div class="chat-window">
+  <div class="chat-window" bind:this={chat_window}>
     {#each all_msgs as msg (msg)}
       {#if msg.from == "sender"}
         <div align="right">
@@ -40,7 +46,7 @@
     width: 500px;
     border: 1px solid #000;
     overflow-y: scroll;
-    height: 400px;
+    height: 300px;
   }
   :global(.sender) {
     background: aqua;
