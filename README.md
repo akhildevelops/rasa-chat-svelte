@@ -1,6 +1,6 @@
 # Rasa Svelte Chat App
 
-Connects to the Rasa ChatBot!
+Connects to the Rasa ChatBot at port 5005!
 
 ## Get started
 
