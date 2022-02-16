@@ -11,7 +11,16 @@
 </script>
 
 <div>
-  <input type="text" bind:value />
+  <input
+    type="text"
+    bind:value
+    on:keyup={(e) => {
+      if (e.key === "Enter") {
+        sender_msgs.update(add_to_group);
+        value = "";
+      }
+    }}
+  />
   <button
     on:click={(e) => {
       sender_msgs.update(add_to_group);
