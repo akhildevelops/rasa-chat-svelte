@@ -3,14 +3,13 @@ env:
   ARTIFICAT_ZIP: chat-interface.zip
 on:
   push:
-    branches:
-      - "master"
     tags:
       - "v*"
 
 jobs:
-  tagged-release:
-    name: "Tagged Release"
+  tagged-master-release:
+    if: github.event.base_ref=='refs/heads/master'
+    name: "Master Tagged Release"
     runs-on: "ubuntu-latest"
 
     steps:
