@@ -25,17 +25,10 @@
 <div class="chat-window-input">
   <div class="chat-window" bind:this={chat_window}>
     {#each all_msgs as msg (msg)}
-      {#if msg.from == "sender"}
-        <div align="right">
-          <div>sender</div>
-          <MessageBubble text={msg.msg} class="sender" />
-        </div>
-      {:else}
-        <div align="left">
-          <div>receiver</div>
-          <MessageBubble text={msg.msg} class="receiver" />
-        </div>
-      {/if}
+      <div align={msg.from == "sender" ? "right" : "left"}>
+        <div>{msg.from}</div>
+        <MessageBubble text={msg.msg} class={msg.from} />
+      </div>
     {/each}
   </div>
   <TextInput />
