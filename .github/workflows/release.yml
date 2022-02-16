@@ -30,7 +30,7 @@ jobs:
       - name: "Zip public folder"
         uses: montudor/action-zip@v1
         with:
-          args: cd public; zip -qq -r ../${{ env.ARTIFICAT_ZIP }} *
+          args: zip -qq -r ${{ env.ARTIFICAT_ZIP }} public
 
       - name: "Release"
         uses: "marvinpinto/action-automatic-releases@latest"
