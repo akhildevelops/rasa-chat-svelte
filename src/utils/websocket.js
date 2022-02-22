@@ -1,6 +1,7 @@
 import { receiver_msgs } from "../var_store";
 import { io } from "socket.io-client";
-const connection_url = "http://localhost:5005";
+
+const connection_url = `http://${location.hostname}:5005`;
 
 export const web_s = io(connection_url);
 
